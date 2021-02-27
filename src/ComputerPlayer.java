@@ -13,7 +13,7 @@ public class ComputerPlayer extends Player {
 
         // add a short delay to enhance the user experience for the human player
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

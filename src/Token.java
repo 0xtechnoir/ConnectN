@@ -1,6 +1,7 @@
 public enum Token {
-    HUMAN_PLAYER('r'),
-    COMPUTER_PLAYER('y');
+    HUMAN_PLAYER('x'),
+    COMPUTER_PLAYER1('o'),
+    COMPUTER_PLAYER2('$');
 
     public final char label;
 

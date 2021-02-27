@@ -5,24 +5,29 @@ public class Board {
     private final char[][] board;
     private final int numCols;
     private final int numRows;
+    private final int winStreak;
 
-    public Board(){
+    public Board(int winStreak){
         this.board = new char[6][7];
         this.numCols = board[0].length;
         this.numRows = board.length;
+        this.winStreak = winStreak;
     }
 
     public String printBoard(){
 
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < numRows; i++){ // 0 to 5
+        for(int i = 0; i < numRows; i++){
             for(int j = 0; j < numCols; j++){
-                if(board[i][j] == 'r'){
-                    sb.append("| r ");
+                if(board[i][j] == 'x'){
+                    sb.append("| x ");
                 }
-                else if(board[i][j] == 'y'){
-                    sb.append("| y ");
+                else if(board[i][j] == 'o'){
+                    sb.append("| 0 ");
+                }
+                else if(board[i][j] == '$'){
+                    sb.append("| $ ");
                 }
                 else{
                     sb.append("|   ");
@@ -59,7 +64,7 @@ public class Board {
 
     public boolean hasPlayerWon(Player player) {
 
-        GameUtils checker = new GameUtils(board);
+        GameUtils checker = new GameUtils(board, winStreak);
 
         if (checker.checkHorizontal(player)) {
             return true;
@@ -86,6 +91,8 @@ public class Board {
 
         if (currentPlayer.equals(players.get(0))) {
             nextPlayer = players.get(1);
+        } else if (currentPlayer.equals(players.get(1))) {
+            nextPlayer = players.get(2);
         } else {
             nextPlayer = players.get(0);
         }

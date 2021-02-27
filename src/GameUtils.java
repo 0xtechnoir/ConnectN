@@ -1,23 +1,46 @@
+import org.w3c.dom.ls.LSOutput;
+
 public class GameUtils {
 
     char[][] board;
-    int maxWidth;
-    int maxHeight;
+    int boardWidth;
+    int boardHeight;
 
-    public GameUtils(char[][] board) {
+    /**
+     * The length of a continuous line a single token type required to win.
+     * Passed into the application as a command line argument
+     */
+    int winStreak;
+
+
+    /** Used by the diagonal checkers to calculate the col and row boundaries
+     * within which a winning streak is possible.
+     */
+    int offSet;
+
+    public GameUtils(char[][] board, int winStreak) {
         this.board = board;
-        this.maxWidth = board[0].length;
-        this.maxHeight = board.length;
+        this.boardWidth = board[0].length;
+        this.boardHeight = board.length;
+        this.winStreak = winStreak;
+        this.offSet = winStreak-1;
+
     }
 
+    /**
+     * A method to check whether the most recent move has resulted in a
+     * winning streak of tokens in the horizontal plane.
+     * @param player
+     * @return a boolean value representing whether or not a player has won.
+     */
     public boolean checkHorizontal(Player player) {
         int count;
-        for (int i = 0; i < maxHeight; i++) {
+        for (int i = 0; i < boardHeight; i++) {
             count = 0;
-            for (int j = 0; j < maxWidth; j++) {
+            for (int j = 0; j < boardWidth; j++) {
                 if (board[i][j] == player.getToken()) {
                     count++;
-                    if (count >= 4) {
+                    if (count >= winStreak) {
                         System.out.println("horizontal win");
                         return true;
                     }
@@ -29,14 +52,20 @@ public class GameUtils {
         return false;
     }
 
+    /**
+     * A method to check whether the most recent move has resulted in a
+     * winning streak of tokens in the vertical plane.
+     * @param player
+     * @return a boolean value representing whether or not a player has won.
+     */
     public boolean checkVertical(Player player) {
         int count;
-        for(int i = 0; i < maxWidth; i++){
+        for(int i = 0; i < boardWidth; i++){
             count = 0;
-            for(int j = 0; j < maxHeight; j++){
+            for(int j = 0; j < boardHeight; j++){
                 if(board[j][i] == player.getToken()){
                     count++;
-                    if(count >= 4){
+                    if(count >= winStreak){
                         System.out.println("vertical win");
                         return true;
                     }
@@ -48,16 +77,27 @@ public class GameUtils {
         return false;
     }
 
+    /**
+     * A method to check whether the most recent move has resulted in a
+     * winning streak of tokens in the ascending diagonal direction (left - right).
+     * @param player
+     * @return a boolean value representing whether or not a player has won.
+     */
     public boolean checkAscendingDiagonal(Player player) {
         int count;
-        for (int rowStart = 3; rowStart < maxHeight; rowStart++) {
-//            count = 0;
-            for (int colStart = 0; colStart < maxWidth - 3; colStart++) {
+
+        // define rows to loop through using offset value
+        for (int rowStart = offSet; rowStart < boardHeight; rowStart++) {
+
+            // define cols to loop through using offset value
+            for (int colStart = 0; colStart < boardWidth - offSet; colStart++) {
                 count = 0;
-                for (int row = rowStart, col = colStart, i=0; i <= 3; row--, col++, i++) {
+
+                // move through ascending diagonal patterns of length winStreak
+                for (int row = rowStart, col = colStart, i=0; i < winStreak; row--, col++, i++) {
                     if(board[row][col] == player.getToken()){
                     count++;
-                    if(count >= 4) {
+                    if(count >= winStreak) {
                         System.out.println("ascending diagonal win");
                         return true;
                     }
@@ -69,16 +109,27 @@ public class GameUtils {
         return false;
     }
 
+    /**
+     * A method to check whether the most recent move has resulted in a
+     * winning streak of tokens in the descending diagonal direction (right - left).
+     * @param player
+     * @return a boolean value representing whether or not a player has won.
+     */
     public boolean checkDescendingDiagonal(Player player) {
         int count;
-        for (int rowStart = 0; rowStart < maxHeight - 3; rowStart++) {
-//            count = 0;
-            for (int colStart = 0; colStart < maxWidth - 3; colStart++) {
+
+        // define rows to loop through using offset value
+        for (int rowStart = 0; rowStart < boardHeight - offSet; rowStart++) {
+
+            // define cols to loop through using offset value
+            for (int colStart = 0; colStart < boardWidth - offSet; colStart++) {
                 count = 0;
-                for (int row = rowStart, col = colStart, i=0; i <= 3; row++, col++, i++) {
+
+                // move through descending diagonal patterns of length winStreak
+                for (int row = rowStart, col = colStart, i=0; i < winStreak; row++, col++, i++) {
                     if(board[row][col] == player.getToken()){
                     count++;
-                    if(count >= 4) {
+                    if(count >= winStreak) {
                         System.out.println("descending diagonal win");
                         return true;
                     }
