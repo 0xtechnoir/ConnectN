@@ -1,0 +1,21 @@
+University Project
+
+Task - Create a Connect4 game where a human player can play against 2 computer players
+
+The player can also define the length of a token line required to win.
+Connect4 traditionally requires a continuous line of 4 tokens. By passing in a number between 2 and 6 as command line,
+argument, this can be changed.
+
+ - Computer players take their turns automatically utilising random numbers.
+ - The human player has a 'r' token
+ - The computer players have 'g' and 'y' tokens
+ - The application checks for winning streaks in the vertical, horizontal and diagonal planes.
+
+To run the application:
+
+ - open terminal
+ - cd into src directory
+ - javac MyConnectFour.java
+ - java MyConnectFour 5
+
+Note 5 is the winning streak required.

@@ -1,5 +1,7 @@
-import org.w3c.dom.ls.LSOutput;
-
+/**
+ * A utility class containing methods to detect winning sequences of token
+ * on the board.
+ */
 public class GameUtils {
 
     char[][] board;
@@ -18,19 +20,24 @@ public class GameUtils {
      */
     int offSet;
 
+    /**
+     * GameUtils constructor. A utility class containing methods to detect winning sequences of token
+     * on the board.
+     * @param board the board to check
+     * @param winStreak the length of a win sequence
+     */
     public GameUtils(char[][] board, int winStreak) {
         this.board = board;
         this.boardWidth = board[0].length;
         this.boardHeight = board.length;
         this.winStreak = winStreak;
         this.offSet = winStreak-1;
-
     }
 
     /**
      * A method to check whether the most recent move has resulted in a
      * winning streak of tokens in the horizontal plane.
-     * @param player
+     * @param player the player whose turn it currently is
      * @return a boolean value representing whether or not a player has won.
      */
     public boolean checkHorizontal(Player player) {
@@ -55,7 +62,7 @@ public class GameUtils {
     /**
      * A method to check whether the most recent move has resulted in a
      * winning streak of tokens in the vertical plane.
-     * @param player
+     * @param player the player whose turn it currently is
      * @return a boolean value representing whether or not a player has won.
      */
     public boolean checkVertical(Player player) {
@@ -80,7 +87,7 @@ public class GameUtils {
     /**
      * A method to check whether the most recent move has resulted in a
      * winning streak of tokens in the ascending diagonal direction (left - right).
-     * @param player
+     * @param player the player whose turn it currently is
      * @return a boolean value representing whether or not a player has won.
      */
     public boolean checkAscendingDiagonal(Player player) {
@@ -112,7 +119,7 @@ public class GameUtils {
     /**
      * A method to check whether the most recent move has resulted in a
      * winning streak of tokens in the descending diagonal direction (right - left).
-     * @param player
+     * @param player the player whose turn it currently is
      * @return a boolean value representing whether or not a player has won.
      */
     public boolean checkDescendingDiagonal(Player player) {
